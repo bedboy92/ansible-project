@@ -1,0 +1,6 @@
+- hosts: managed
+  name: set_managed
+  gather_facts: "yes"
+  roles:
+#    - Default_set_Linux_useradd
+    - Default_set_Linux_fail2ban

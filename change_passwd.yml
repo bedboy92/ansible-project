@@ -1,0 +1,9 @@
+# PASSWORD CHANGE
+ - name: gba password change (Amazon , CentOS , Ubuntu)
+   user:
+      name: "{{ gba ~ gba_id.stdout}}"
+      password: "{{ (pass1 ~ gba_password.stdout ~ pass2 ~ pass3) | password_hash('sha512') }}"
+      update_password: always
+   when:
+     - ansible_facts['distribution'] == 'Amazon' or ansible_facts['distribution'] == 'Centos' or  ansible_facts['distribution'] == 'Ubuntu'
+

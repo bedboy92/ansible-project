@@ -1,0 +1,28 @@
+---
+# tasks file for 102_set_managed
+#
+#managed_setting
+#2022-07-205 ver.01
+#
+
+#1.user_add & passwd & sudoer
+#
+#2.fail2ban_install
+#
+#3.history_format
+#
+#4.change hostname
+#
+#5.essential package install
+#
+#6.login info setting
+#
+#7.logroate setting
+#
+#8.NTP Setting
+#
+#9.Set HostName
+ - include_tasks: set_hostname.yml
+   when:
+     - ansible_facts['distribution'] == 'Amazon' or ansible_facts['distribution'] == 'Centos' or  ansible_facts['distribution'] == 'Ubuntu'
+

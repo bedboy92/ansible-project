@@ -1,0 +1,45 @@
+
+#make managed id
+ - name: gba_id_check
+   shell: echo "{{ gabia_id }}" | cut -c 1-5
+   register: gba_id
+ - debug:
+         msg="{{ gba ~ gba_id.stdout}}"
+
+
+#earn managed public ip && private ip 
+
+ - name: gba_ip_check
+   ipify_facts:
+    api_url: https://api.ipify.org
+    timeout: 20
+   register: gabia_ip
+ - debug:
+        msg="{{gabia_ip}}"
+
+#make ip patten
+ - name : make_gba_ip
+   shell: echo "{{gabia_ip}}" |cut -d '.' -f3,4 |rev|cut -c 3- |rev
+   register: gba_ip
+ - debug:
+        msg="{{ gba_ip.stdout}}"
+
+#make managed passwd pattern
+ - name: gba_password_check
+   shell: echo "{{ gabia_id }}" | cut -c 1-2
+   register: gba_password
+ - debug:
+         msg="{{pass1 ~ gba_password.stdout ~ pass2 ~ gba_ip.stdout ~ pass3}}"
+ - set_fact:
+      var_role1: pass1 ~ gba_password.stdout ~ pass2 ~ gba_ip.stdout ~ pass3
+
+# PASSWORD CHANGE
+# - name: gba password change (Amazon , CentOS , Ubuntu)
+#   user:
+#      name: "{{ gba ~ gba_id.stdout}}"
+#      password: "{{ (pass1 ~ gba_password.stdout ~ pass2 ~ gba_ip.stdout  ~ pass3) | password_hash('sha512') }}"
+#      update_password: always
+#   when:
+#    - ansible_facts['distribution'] == 'Amazon' or ansible_facts['distribution'] == 'Centos' or  ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'CentOS'
+
+

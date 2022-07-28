@@ -1,0 +1,13 @@
+---
+# tasks file for Default_set_Linux_fail2ban
+#
+#
+ - include_tasks: fail2ban_CentOS.yml
+   when:
+     -  ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+
+ - include_tasks: fail2ban_Ubuntu.yml
+   when:
+     -  ansible_facts['distribution'] == 'Ubuntu'
+
+

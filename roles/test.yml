@@ -1,0 +1,13 @@
+- hosts: managed
+  tasks:
+    - name: execute df 
+      command: df -Th
+      tags: disk
+      register: disk
+    - name: print memory
+      tags: memory
+      command: free -h
+      register: space
+    - debug:
+          var: space.stdout_lines
+          var: disk.stdout_lines

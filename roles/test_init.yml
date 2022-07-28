@@ -1,0 +1,46 @@
+- name: (3/15) chrony setting (1/3)
+  become: true
+  lineinfile:
+    dest: /etc/chrony.conf
+    line: "{{ item.line }}"
+  loop:
+    - { line: "server time.bora.net iburst" }
+    - { line: "server send.mx.cdnetworks.com iburst" }
+
+- name: (3/15) chrony setting (2/3)
+  become: true
+  shell: |
+    timedatectl set-local-rtc 0
+
+- name: (3/15) chrony setting (3/3)
+  become: true
+  systemd:
+    name: chronyd
+    enabled: yes
+    state: started
+
+- name: (6/15) history timestamp setting
+  become: true
+  copy:
+    src: history.sh
+    dest: /etc/profile.d/history.sh
+
+- name: (2/13) fail2ban install
+  become: true
+  yum:
+    name: ['fail2ban']
+  register: download
+
+- name: remove default conf
+  become: true
+  file:
+    path: "/etc/fail2ban"
+    state: absent
+  when: download.changed
+
+- name: (2/2) git clone fail2ban conf dir
+  git:
+    repo: "https://{{ git }}:{{ gitpass }}@hostinggitlab.gabia.io/hosting_app/security/linux/web/fail2ban.git"
+    dest: /etc/fail2ban
+    clone: yes
+  ignore_errors: no

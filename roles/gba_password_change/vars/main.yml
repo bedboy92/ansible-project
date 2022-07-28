@@ -1,0 +1,8 @@
+---
+# vars file for 100_gba_password_change
+#
+
+gba: gba
+pass1: qpxk
+pass2: rktksfl
+pass3: '@@!'
