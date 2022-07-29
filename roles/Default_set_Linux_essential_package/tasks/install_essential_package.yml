@@ -1,0 +1,18 @@
+####### INSTALL ESSNTIAL PACKAGE #######
+
+ - name: install_epel_release
+   yum:
+    name:
+       - epel-release
+       - psmisc
+       - bind-utils
+       - ntsysv
+       - mlocate
+       - tree
+       - telnet
+       - vim
+       - net-tools
+
+    state: present
+ - debug:
+

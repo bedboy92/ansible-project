@@ -1,0 +1,16 @@
+##### SET default install php #######
+#
+
+ - name : install_php
+   yum :
+     name: 
+       - php
+       - php-devel
+       - php-mysql
+       - php-mbstring
+       - php-common
+       - php-cli
+       - php-pdo
+
+     state: present
+ - debug:

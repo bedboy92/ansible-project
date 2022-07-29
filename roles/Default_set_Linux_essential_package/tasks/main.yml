@@ -1,0 +1,7 @@
+---
+# tasks file for Default_set_Linux_essential_package
+#
+ - include_tasks: install_essential_package.yml
+   when:
+     -  ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+

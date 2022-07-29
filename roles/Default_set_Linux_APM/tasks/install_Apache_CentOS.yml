@@ -1,0 +1,26 @@
+##### SET default install apache #######
+#
+
+ - name : install_apache
+   yum :
+     name: 
+       - httpd
+       - httpd-devel
+     state: present
+ - debug:
+
+
+
+##### Set HTTP enable #####
+#
+ - name: enable_apache
+   command : systemctl enable httpd
+   command : /usr/sbin/httpd -V
+ - debug:
+
+
+##### Start HTTPD ########
+
+ - name: start_httpd
+   command: systemctl start httpd
+ - debug:

@@ -1,0 +1,5 @@
+- hosts: managed
+  name: install_apm
+  gather_facts: "yes"
+  roles:
+    - Default_set_Linux_APM

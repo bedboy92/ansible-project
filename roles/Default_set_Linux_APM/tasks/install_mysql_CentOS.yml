@@ -1,0 +1,48 @@
+##############SET Default MYSQL5.7 ##############
+#
+
+ - name: set_install_release
+   yum:
+     name:
+      - http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm 
+ - debug:
+
+ - name: set_install_gpg_key
+   command: rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+ - debug:
+
+
+ - name: install_mysql
+   yum:
+     name:
+       - mysql
+       - mysql-community-server
+       
+     state: present
+ - debug:
+
+
+###########SET My.cnf ################
+#
+ 
+ - name: set_my.cnf
+   lineinfile:
+     path: /etc/my.cnf
+     insertafter: '[mysqld]'
+     line: datadir=/var/lib/mysql
+     line: socket=/var/lib/mysql.sock
+     line: max_connections=1024
+ - debug:
+
+#########ENABLE MYSQL###############
+ - name: enable_mysql
+   command: systemctl enable mysqld
+ - debug:
+
+
+########START MYSQL################
+
+ - name: start mysql
+   command: systemctl start mysqld
+ - debug:
+
