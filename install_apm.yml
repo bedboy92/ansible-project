@@ -3,3 +3,7 @@
   gather_facts: "yes"
   roles:
     - Default_set_Linux_APM
+  vars_prompt:
+    - name: database_path
+      prompt: what is your database path?
+      private: no

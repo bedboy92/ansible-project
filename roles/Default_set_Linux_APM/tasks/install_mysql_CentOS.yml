@@ -1,3 +1,5 @@
+
+
 ##############SET Default MYSQL5.7 ##############
 #
 
@@ -22,6 +24,15 @@
  - debug:
 
 
+#########SET ENVIRONMENT VARIABLES ########
+#
+ 
+# - name: make_database_path_name
+#   shell: echo "{{ database_path }}" |cut -c 1- | rev | cut -c 2- |rev
+#   register: db_path
+# - debug:
+#        msg="{{ db_path.stdout}}"
+
 ###########SET My.cnf ################
 #
  
@@ -29,10 +40,24 @@
    lineinfile:
      path: /etc/my.cnf
      insertafter: '[mysqld]'
-     line: datadir=/var/lib/mysql
-     line: socket=/var/lib/mysql.sock
+     line: datadir= "{{database_path}}"
+     line: socket= "{{database_path}}"/mysql.sock
      line: max_connections=1024
  - debug:
+
+########START MYSQL################
+
+# - name: start mysql
+#   command: systemctl start mysqld
+# - debug:
+#
+
+#########INSTALL DATABASE ###########
+ - name: install_default_database
+   shell:  "mysqld  --initialize-insecure  --datadir={{database_path}} --user=mysql"   
+#   command: mysql_secure_installation --datadir= "{{ databse_path }}" --user=mysql --auth-root-authentication-method=normal
+ - debug:
+
 
 #########ENABLE MYSQL###############
  - name: enable_mysql
@@ -42,7 +67,7 @@
 
 ########START MYSQL################
 
- - name: start mysql
-   command: systemctl start mysqld
+ - name: restart_mysql
+   command: systemctl restart mysqld
  - debug:
 
