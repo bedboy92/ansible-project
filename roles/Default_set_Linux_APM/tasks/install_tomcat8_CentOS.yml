@@ -1,0 +1,64 @@
+############ INSTALL TOMCAT8 #############
+#
+#
+
+###########INSTALL JDK 1.8##############
+#
+#
+#
+ - name: install_jdk
+   yum:
+     name:
+       - java-1.8.0-openjdk.x86_64
+       - java-1.8.0-openjdk-devel
+     state: present
+ - debug:
+
+########## URL INSTALL ############
+ - name: find_url
+   uri: 
+     url: https://archive.apache.org/dist/tomcat/tomcat-8/v8.0.53/bin/apache-tomcat-8.0.53.tar.gz
+   register: tomcat8
+   ignore_errors: yes
+ - debug:
+    msg="{{tomcat8}}"
+
+ - name: download_tomcat8
+   get_url:
+      url: https://archive.apache.org/dist/tomcat/tomcat-8/v8.0.53/bin/apache-tomcat-8.0.53.tar.gz
+      dest: /usr/local/src
+   when: tomcat8.status == 200
+ - debug:
+     
+########## file_install ###########
+ - name: upload_tomcat8
+   copy:
+     src: /root/cloudt-managed-ansible-test/roles/Default_set_Linux_APM/files/apache-tomcat-8.0.53.tar.gz
+     dest: /usr/local/src/
+   when: tomcat8.status != 200
+ - debug:
+
+########### unzip && move  tomcat8 ##########
+#
+ - name: unzip_tomcat
+   unarchive:
+    remote_src: yes
+    src: /usr/local/src/apache-tomcat-8.0.53.tar.gz
+    dest: /usr/local
+ - debug:
+
+ - name: move_tomcat_directory
+   shell: "mv /usr/local/apache-tomcat-8.0.53 /usr/local/tomcat8"
+ - debug:
+
+
+########### Catalina evrironment set ###########
+#
+#
+########## Catalina log roate set #############
+#
+########## Catalina service ###################
+#
+#
+#
+######### mod_jk 연동 /fpm 연동 ###############

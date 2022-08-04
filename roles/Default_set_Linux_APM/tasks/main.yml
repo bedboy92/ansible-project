@@ -16,8 +16,15 @@
 #  when:
 #    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
 
-- include_tasks: install_mariadb_CentOS.yml
+#- include_tasks: install_mariadb_CentOS.yml
+#  when:
+#    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+
+#- include_tasks: install_nginx_CentOS.yml
+#  when:
+#    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+
+- include_tasks: install_tomcat8_CentOS.yml
   when:
     - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
-
 
