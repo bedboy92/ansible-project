@@ -7,13 +7,17 @@
 #    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
 
 
-- include_tasks: install_mysql_CentOS.yml
-  when:
-    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+#- include_tasks: install_mysql_CentOS.yml
+#  when:
+#    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
 
 
 #- include_tasks: install_php_CentOS.yml
 #  when:
 #    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+
+- include_tasks: install_mariadb_CentOS.yml
+  when:
+    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
 
 

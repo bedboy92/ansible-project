@@ -1,0 +1,99 @@
+############## MARIADB 10.8.3 ######################
+##############SET Default MariaDB.repo ##############
+#
+
+ - name: set_mariadb_repository
+   shell: curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash
+ - debug:
+
+
+ - name: install_mariadb
+   yum:
+     name:
+       - MariaDB
+       - mariadb-server
+       
+     state: present
+ - debug:
+
+
+#########SET ENVIRONMENT VARIABLES ########
+#
+ 
+# - name: make_database_path_name
+#   shell: echo "{{ database_path }}" |cut -c 1- | rev | cut -c 2- |rev
+#   register: db_path
+# - debug:
+#        msg="{{ db_path.stdout}}"
+
+
+########START MYSQL################
+
+# - name: start mysql
+#   command: systemctl start mysqld
+# - debug:
+#
+########MKDIR_DBPATH#############
+#
+ - name: mkdir_dbpath
+   file:
+    path: "{{database_path}}"
+    state: directory
+    group: mysql
+    owner: mysql
+    mode: 0755
+    recurse: yes
+ - debug:
+
+#########INSTALL DATABASE ###########
+ - name: install_default_database
+   shell:  "mysql_install_db  --datadir={{database_path}} --user=mysql --auth-root-authentication-method=normal" 
+#   command: mysql_secure_installation --datadir= "{{ databse_path }}" --user=mysql --auth-root-authentication-method=normal
+ - debug:
+
+###########SET My.cnf ################
+#
+
+ - name: set_my.cnf_mysqld
+   lineinfile:
+     path: /etc/my.cnf.d/server.cnf
+     insertafter: '^\[+m+y+s+q+l+d+\]$'
+     line: '{{ item }}'
+   with_items:
+     - "datadir= {{database_path}}"
+     - "socket= {{database_path}}/mysql.sock"
+     - 'max_connections = 1024'
+ - debug:
+
+ - name: set_my.cnf_server
+   lineinfile:
+     path: /etc/my.cnf.d/server.cnf
+     insertafter: '^\[+s+e+v+e+r+\]$'
+     line: '{{ item }}'
+   with_items:
+     - "socket= {{database_path}}/mysql.sock"
+ - debug:
+
+ - name: set_my.cnf_client
+   lineinfile:
+     path: /etc/my.cnf
+     insertafter: '^\[+client+\-+server\]$'
+     line: '{{ item }}'
+   with_items:
+     - "socket= {{database_path}}/mysql.sock"
+ - debug:
+
+
+
+#########ENABLE MARIADB###############
+ - name: enable_mysql
+   command: systemctl enable mariadb
+ - debug:
+
+
+########START MARIADB################
+
+ - name: restart_mysql
+   command: systemctl restart mariadb
+ - debug:
+

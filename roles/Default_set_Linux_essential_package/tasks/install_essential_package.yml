@@ -1,5 +1,11 @@
 ####### INSTALL ESSNTIAL PACKAGE #######
 
+ - name: yum_update
+   yum:
+    name: "*"
+    state: latest
+ - debug:
+
  - name: install_epel_release
    yum:
     name:
