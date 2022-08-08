@@ -1,0 +1,29 @@
+########### set tomcat_nginx_php-fpm #############
+
+ - name: set_nginx_conf
+   lineinfile:
+     path: /etc/nginx/conf.d/default.conf
+     insertafter: '#}'
+     line: '{{ item }}'
+   with_items:
+     - "     }"
+     - "    include fastcgi_params;"
+     - "    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;"
+     - "    fastcgi_index index.php;"
+     - "    fastcgi_pass 127.0.0.1:9000;"
+     - "    location ~ \\.php$ {"
+ - debug:
+
+ - name: set_fpm_conf_user
+   lineinfile:
+     path: /etc/php-fpm.d/www.conf
+     regexp: 'user ='
+     line: "user = nginx"
+ - debug:
+
+ - name: set_fpm_conf_group
+   lineinfile:
+     path: /etc/php-fpm.d/www.conf
+     regexp: 'group ='
+     line: "group = nginx"
+ - debug:

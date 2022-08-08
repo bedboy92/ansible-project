@@ -1,0 +1,24 @@
+################## INSTALL - PHP -FPM #################
+#
+#
+ - name: install_php_fpm
+   yum: 
+     name:
+       - php
+       - php-mysql
+       - php-fpm
+ - debug:
+
+
+################ enable fpm #######################
+
+ - name: enable_fpm
+   shell: systemctl enable php-fpm
+ - debug:
+
+################ start fpm #########################
+
+ - name: start_fpm
+   shell: systemctl start php-fpm
+ - debug:
+

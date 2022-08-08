@@ -1,8 +1,5 @@
 ############ INSTALL TOMCAT8 #############
-#
-#
-
-###########INSTALL JDK 1.8##############
+########### INSTALL JDK 1.8##############
 #
 #
 #
@@ -54,11 +51,111 @@
 
 ########### Catalina evrironment set ###########
 #
-#
+
+ - name: register_java_path
+   shell: readlink -f /usr/bin/java
+   register: java_path   
+ - debug:
+     msg="{{java_path.stdout}}"
+
+ - name: cut_java_path
+   shell: echo "{{java_path.stdout}}" |rev| cut -c 10- |rev
+   register: java_path_cut
+ - debug:
+     msg="{{java_path_cut.stdout}}"
+ 
+
+ - name: set_tomcat_environment
+   lineinfile:
+     path: /etc/profile
+     line: '{{item }}'
+   with_items:
+     - "#####catalainaenvrionment set ######"
+     - "JAVA_HOME={{java_path_cut.stdout}}"
+     - "CATALINA_HOME=/usr/local/tomcat8"
+     - "CLASSPATH=$JAVA_HOME/jre/lib:$JAVA_HOME/lib/tools.jar:$CATALINA_HOME/lib-jsp-api.jar:$CATALINA_HOME/lib/servlet-api.jar"
+     - "PATH=$PATH:$JAVA_HOME/bin:/bin:/sbin"
+     - "export JAVA_HOME PATH CLASSPATH CATALINA_HOME"
+ - debug:
+ 
+ - name: soure_profile
+   shell: source /etc/profile
+ - debug:
+   
 ########## Catalina log roate set #############
 #
+ - name: touch_tomcat_logroate
+   file:
+    path: /etc/logrotate.d/tomcat
+    state: touch
+    owner: root
+    group: root
+    mode: 0644
+ - debug:
+ 
+ - name: set_tomcat_logrotate
+   lineinfile:
+     path: /etc/logrotate.d/tomcat
+     line: '{{item }}'
+   with_items:
+     - "/usr/local/tomcat8/logs/catalina.out {"
+     - "  copytruncate"
+     - "  daily"
+     - "  rotate 30"
+     - "  compress"
+     - "  missingok"
+     - "  notifempty"
+     - "  dateext"
+     - "}"
+ - debug:
+      
 ########## Catalina service ###################
 #
 #
-#
-######### mod_jk 연동 /fpm 연동 ###############
+ - name: touct_tomcat_service
+   file:
+    path: /etc/systemd/system/tomcat.service
+    state: touch
+    owner: root
+    group: root
+    mode: 0644
+ - debug:
+
+ - name: set_tomcat_service
+   lineinfile:
+     path: /etc/systemd/system/tomcat.service
+     line: '{{item }}'
+   with_items:
+     - "[UNIT]"
+     - "Description=tomcat"
+     - "After=syslog.target network.target"
+     - ""
+     - "[Service]"
+     - "Type=forking"
+     - "JAVA_HOME={{java_path_cut.stdout}}"
+     - "PATH=$PATH:$JAVA_HOME/bin:/bin:/sbin"
+     - "CLASSPATH=$JAVA_HOME/jre/lib:$JAVA_HOME/lib/tools.jar:$CATALINA_HOME/lib-jsp-api.jar:$CATALINA_HOME/lib/servlet-api.jar"
+     - " "
+     - "Environment=\"JAVA_HOME={{java_path_cut.stdout}}\""
+     - "Environment=\"CATALINA_HOME=/usr/local/tomcat8\""
+     - "Environment=\"CATALINA_BASE=/usr/local/tomcat8\""
+     - " "
+     - "ExecStart=/usr/local/tomcat8/bin/startup.sh"
+     - "ExecStop=/usr/local/tomcat8/bin/shutdown.sh"
+     - " "
+     - "User=root"
+     - "Group=root"
+     - "UMask=0007"
+     - " "
+     - "[Install]"
+     - "WantedBy=multi-user.target"
+ - debug:
+   
+ - name: enable_tomcat_service
+   shell: systemctl enable tomcat
+ - debug:
+
+ - name: start_tomcat_service
+   shell: systemctl start tomcat
+ - debug:
+

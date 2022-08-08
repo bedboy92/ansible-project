@@ -1,0 +1,129 @@
+############### SET TOMCAT_ MODJK #######################
+#
+#
+#
+############## ESSENTIAL PACKAGE INSTALL ###############
+#
+#
+ - name: install_tomcat_pacakge
+   yum:
+    name:
+     - gcc
+     - gcc-c++
+     - httpd-devel
+
+
+############# INSTALL TOMCAT_ CONNECTOR ################
+############# URL INSTALL ##############################
+ - name: find_url_tomcat_connector
+   uri:
+     url: https://archive.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.48-src.tar.gz
+   register: tomcat8_connector
+   ignore_errors: yes
+ - debug:
+    msg="{{tomcat8_connector}}"
+
+ - name: download_tomcat_connector
+   get_url:
+      url: https://archive.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.48-src.tar.gz
+      dest: /usr/local/src
+   when: tomcat8_connector.status == 200
+ - debug:
+
+########## file_install ###########
+ - name: upload_tomcat_connector
+   copy:
+     src: /root/cloudt-managed-ansible-test/roles/Default_set_Linux_APM/files/tomcat-connectors-1.2.48-src.tar.gz
+     dest: /usr/local/src/
+   when: tomcat8_connector.status != 200
+ - debug:
+
+########### unzip && install  tomcat- connector ##########
+#
+ - name: unzip_tomcat
+   unarchive:
+    remote_src: yes
+    src: /usr/local/src/tomcat-connectors-1.2.48-src.tar.gz
+    dest: /usr/local/src
+ - debug:
+
+ - name: configure_tomcat-connector
+   command: '{{ item}}'
+   with_items:
+     - ./configure --with-apxs=/usr/bin/apxs
+   args:
+     chdir: "/usr/local/src/tomcat-connectors-1.2.48-src/native"
+ - debug:
+
+ - name: make_tomcat-connector
+   command: '{{ item}}'
+   with_items:
+     - make
+   args:
+     chdir: "/usr/local/src/tomcat-connectors-1.2.48-src/native"
+ - debug:
+
+ - name: make_install_tomcat-connector
+   command: '{{ item}}'
+   with_items:
+     - make install
+   args:
+     chdir: "/usr/local/src/tomcat-connectors-1.2.48-src/native"
+ - debug:
+
+
+############ set httpd.conf #############################
+#
+#
+ - name: copy_httpd_conf
+   shell: cp -ap /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.bak
+ - debug:
+
+ - name: set_httpd_conf
+   lineinfile:
+     path: /etc/httpd/conf/httpd.conf
+     line: '{{item}}'
+   with_items:
+    - "LoadModule jk_module modules/mod_jk.so"
+    - "<ifModule mod_jk.c>"
+    - " JkWorkersFile conf/workers.properties"
+    - " JkLogFile logs/mod_jk.log"
+    - " JkShmFile run/mod_jk.shm"
+    - " JkLogLevel debug"
+    - " JkLogStampFormat \"[%y %m %d %H:%M:%S]\""
+    - " JkOptions +ForwardkeySize +ForwardURICompat -ForwardDirectories"
+    - " JkRequestLogFormat \"%W %V %T\""
+    - " JKMount /* worker1"
+    - "  </ifModule>"
+
+ - debug:
+
+
+ - name: touch_tomcat_workers
+   file:
+    path: /etc/httpd/conf/workers.properties
+    state: touch
+    owner: root
+    group: root
+    mode: 0644
+ - debug:
+
+ - name: set_tomcat_workers
+   lineinfile:
+     path: /etc/httpd/conf/workers.properties
+     line: '{{item}}'
+   with_items:
+    - "worker.list=worker1"
+    - "worker.worker1.type=ajp13"
+    - "worker.worker1.host=localhost"
+    - "worker.worker1.port=8009"
+
+ - debug:
+
+ - name: restart_httpd
+   shell: systemctl restart httpd
+ - debug:
+
+############ tomcat - apache other server case ##########
+
+  
