@@ -9,6 +9,6 @@
       private: no
 
 
-#    - name: database_path
-#      prompt: what is your database path?
-#      private: no
+    - name: database_path
+      prompt: what is your database path?
+      private: no

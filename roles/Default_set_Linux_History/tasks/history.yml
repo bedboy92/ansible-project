@@ -1,0 +1,12 @@
+
+ - name: history_format
+   lineinfile:
+      dest: /etc/profile
+      line: "HISTTIMEFORMAT=%Y-%m-%d_%H:%M:%S"
+      line: "export HISTTIMEFORMAT"
+      state: present
+ - debug:
+
+ - name: source_hist
+   shell: source /etc/profile
+ - debug:

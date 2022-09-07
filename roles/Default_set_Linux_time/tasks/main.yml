@@ -1,0 +1,7 @@
+---
+# tasks file for Default_set_Linux_time
+#
+
+ - include_tasks: date.yml
+   when:
+     -  ansible_facts['distribution'] == 'Amazon' or ansible_facts['distribution'] == 'Centos' or  ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'CentOS'

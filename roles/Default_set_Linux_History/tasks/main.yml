@@ -1,0 +1,8 @@
+---
+# tasks file for Default_set_Linux_History
+#
+
+ - include_tasks: history.yml
+   when:
+     -  ansible_facts['distribution'] == 'Amazon' or ansible_facts['distribution'] == 'Centos' or  ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'CentOS'
+
