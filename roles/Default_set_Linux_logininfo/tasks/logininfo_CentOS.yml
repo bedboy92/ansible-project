@@ -1,0 +1,24 @@
+##copy login_info.sh 
+#
+ - name: copy_loginfo
+   copy:
+      src: /root/cloudt-managed-ansible-test/roles/Default_set_Linux_logininfo/files/info_centos_cloud.sh
+      dest: /home/gabia/
+ - debug:
+
+## change info authority
+#
+#
+ - name: chmod_info
+   command: chmod 755 /home/gabia/info_centos_cloud.sh
+ - debug:
+
+## add bash profile
+#
+#
+ - name: add_bash_profile_info
+   lineinfile:
+      path: /root/.bash_profile
+      line: '/home/gabia/info_centos_cloud.sh'
+ - debug:
+

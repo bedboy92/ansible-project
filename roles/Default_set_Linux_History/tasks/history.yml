@@ -1,10 +1,11 @@
 
  - name: history_format
    lineinfile:
-      dest: /etc/profile
-      line: "HISTTIMEFORMAT=%Y-%m-%d_%H:%M:%S"
-      line: "export HISTTIMEFORMAT"
-      state: present
+      path: /etc/profile
+      line: '{{ item }}'
+   with_items:
+      - 'HISTTIMEFORMAT="[%Y-%m-%d_%H:%M:%S]  "'
+      - "export HISTTIMEFORMAT"
  - debug:
 
  - name: source_hist

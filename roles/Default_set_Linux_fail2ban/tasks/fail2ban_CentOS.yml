@@ -29,7 +29,7 @@
 #
  - name: default_configure
    copy:
-      src: /etc/ansible/roles/Default_set_Linux_fail2ban/files/gabia_default_jail.conf
+      src: /root/cloudt-managed-ansible-test/roles/Default_set_Linux_fail2ban/files/gabia_default_jail.conf
       dest: /etc/fail2ban/jail.conf
  - debug:
 
