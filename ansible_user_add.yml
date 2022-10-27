@@ -1,0 +1,5 @@
+- hosts: "{{gabia_id}}"
+  name: ansible_user
+  gather_facts: "yes"
+  roles:
+    - Default_set_Ansible_User

@@ -1,0 +1,17 @@
+#USER_ADD_ANSIBLE
+#
+ - name : ansible_user
+   user :
+      name: "gbawork"
+      password: "{{ 'Rkqldk2022@)@@' |password_hash('sha512') }}"
+      shell: "/bin/bash"
+ - debug: 
+
+#Sudoer ADD
+ - name: Sudoer add
+   lineinfile:
+      dest: /etc/sudoers
+      insertafter : "^root"
+      line: "gbawork   ALL=(ALL)   ALL"
+      state: present
+ - debug:

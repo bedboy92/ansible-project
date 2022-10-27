@@ -1,0 +1,13 @@
+---
+# tasks file for 100_gba_password_change
+#
+ - include_tasks: ansible_useradd.yml
+   when:
+     -  ansible_facts['distribution'] == 'Amazon' or ansible_facts['distribution'] == 'Centos' or  ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'CentOS'
+
+# - include_tasks: change_passwd.yml
+#   when:
+#     -  ansible_facts['distribution'] == 'Amazon' or ansible_facts['distribution'] == 'Centos' or  ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'CentOS'
+
+
+
