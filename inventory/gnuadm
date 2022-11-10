@@ -1,0 +1,15 @@
+# This is the default ansible 'hosts' file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+#GBAWORK 폐쇄망없음 
+#해외망 차단으로 IP변경불가, 내용확인후 추가 예정
+[gnuadm]
+103.55.189.202:2222
+103.55.188.113:2222
