@@ -4,4 +4,4 @@
 
  - include_tasks: date.yml
    when:
-     -  ansible_facts['distribution'] == 'Amazon' or ansible_facts['distribution'] == 'Centos' or  ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'CentOS'
+     -  ansible_facts['distribution'] == 'Amazon' or ansible_facts['distribution'] == 'Centos' or  ansible_facts['distribution'] == 'Ubuntu' or ansible_facts['distribution'] == 'CentOS' or ansible_facts['distribution'] == 'Rocky'

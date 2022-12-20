@@ -4,7 +4,7 @@
 #
  - include_tasks: fail2ban_CentOS.yml
    when:
-     -  ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+     -  ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos' or ansible_facts['distribution'] == 'Rocky'
 
  - include_tasks: fail2ban_Ubuntu.yml
    when:
