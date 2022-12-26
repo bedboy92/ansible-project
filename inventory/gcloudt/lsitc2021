@@ -7,13 +7,9 @@
 #   - Groups of hosts are delimited by [header] elements
 #   - You can enter hostnames or ip addresses
 #   - A hostname/ip can be a member of multiple groups
-
-[websen1]
-139.150.74.159
-139.150.74.138
-139.150.76.143
-139.150.74.181
-139.150.74.245
-#139.150.76.160
-139.150.75.27
-139.150.65.27
+[lsitc2021]
+103.55.191.73
+139.150.75.137
+139.150.74.28
+139.150.74.144
+139.150.74.145
