@@ -8,4 +8,7 @@
 #   - You can enter hostnames or ip addresses
 #   - A hostname/ip can be a member of multiple groups
 [globalppeum]
-139.150.71.143
+#139.150.71.143
+#139.150.75.128
+#139.150.70.206
+139.150.76.8

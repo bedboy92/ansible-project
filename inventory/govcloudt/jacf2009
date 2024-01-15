@@ -7,9 +7,7 @@
 #   - Groups of hosts are delimited by [header] elements
 #   - You can enter hostnames or ip addresses
 #   - A hostname/ip can be a member of multiple groups
-[kbei78]
-#139.150.65.153
-#139.150.80.250
-#139.150.75.188
-#139.150.79.55
-103.55.190.127
+[jacf2009]
+211.47.67.155
+139.150.86.90
+139.150.86.91

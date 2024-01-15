@@ -8,6 +8,6 @@
 #   - You can enter hostnames or ip addresses
 #   - A hostname/ip can be a member of multiple groups
 
-[cyverse]
-#103.55.188.116
-45.115.152.21
+[djbea2]
+139.150.86.88
+139.150.86.89

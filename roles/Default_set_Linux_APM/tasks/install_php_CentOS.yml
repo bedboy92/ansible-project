@@ -11,6 +11,32 @@
        - php-common
        - php-cli
        - php-pdo
-
+       - php-dba
+#       - php-dbg
+       - php-embedded
+       - php-enchant
+       - php-fpm
+       - php-gd
+       - php-gmp
+       - php-imap
+       - php-interbase
+       - php-intl
+       - php-ldap
+#       - php-litespeed
+       - php-mcrypt
+#       - php-mysqlnd
+       - php-odbc
+       - php-opcache
+       - php-pgsql
+       - php-process
+       - php-pspell
+       - php-recode
+       - php-snmp
+       - php-soap
+       - php-tidy
+       - php-xml
+       - php-xmlrpc
+       - php-curl
+       - php-zip
      state: present
  - debug:

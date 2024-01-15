@@ -18,7 +18,7 @@
 #
  - name: add_bash_profile_info
    lineinfile:
-      path: /root/.bash_profile
+      path: /root/.profile
       line: '/home/gabia/info_ubuntu.sh'
-#   command: echo "/home/gabia/info_ubuntu.sh" >> /root/.bash_profile
+   command: echo "/home/gabia/info_ubuntu.sh" >> /root/.profile
  - debug:

@@ -1,0 +1,6 @@
+- name: Ping test
+  hosts: "{{gabia_id}}"
+  gather_facts: "yes"
+  tasks:
+  - name: Ping test
+    ping:

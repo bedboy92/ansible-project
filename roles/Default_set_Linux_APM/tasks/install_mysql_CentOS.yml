@@ -5,12 +5,15 @@
 
  - name: set_install_release
    yum:
-     name:
-      - http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm 
+    name:
+#      - https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm 
+#       - https://dev.mysql.com/get/mysql80-community-release-el7-11.noarch.rpm
+       - https://repo.mysql.com//mysql80-community-release-el7-11.noarch.rpm
+#   shell: "yum -y install https://dev.mysql.com/get/mysql80-community-release-el7-11.noarch.rpm"
  - debug:
 
  - name: set_install_gpg_key
-   command: rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
+   command: rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2023
  - debug:
 
 
@@ -52,11 +55,11 @@
 # - debug:
 #
 
-#########INSTALL DATABASE ###########
- - name: install_default_database
-   shell:  "mysqld  --initialize-insecure  --datadir={{database_path}} --user=mysql"   
-#   command: mysql_secure_installation --datadir= "{{ databse_path }}" --user=mysql --auth-root-authentication-method=normal
- - debug:
+##########INSTALL DATABASE ###########
+# - name: install_default_database
+#   shell:  "mysqld  --initialize-insecure  --datadir={{database_path}} --user=mysql"   
+##   command: mysql_secure_installation --datadir= "{{ databse_path }}" --user=mysql --auth-root-authentication-method=normal
+# - debug:
 
 
 #########ENABLE MYSQL###############

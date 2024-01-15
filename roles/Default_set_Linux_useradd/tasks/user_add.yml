@@ -36,6 +36,7 @@
  - name: gba_useradd
    user:
       name: "{{ gba ~ gba_id.stdout}}"
+      home: "/home/gabia"
       password: "{{ (pass1 ~ gba_password.stdout ~ pass2 ~ gba_ip.stdout  ~ pass3)| password_hash('sha512')  }}"
       shell: "/bin/bash"
 

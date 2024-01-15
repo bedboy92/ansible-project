@@ -1,44 +1,50 @@
 ---
 # tasks file for Default_set_Linux_APM
-#
-#
-#- include_tasks: install_Apache_CentOS.yml
-#  when:
-#    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
-#
-#- include_tasks: install_mysql_CentOS.yml
-#  when:
-#    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
-#
-#
-#- include_tasks: install_php_CentOS.yml
-#  when:
-#    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
-#
-#- include_tasks: install_mariadb_CentOS.yml
-#  when:
-#    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
-#
-#- include_tasks: install_nginx_CentOS.yml
-#  when:
-#    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
-#
-#- include_tasks: install_tomcat8_CentOS.yml
-#  when:
-#    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
-#
-#- include_tasks: install_php_fpm_CentOS.yml
-#  when:
-#    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
-#
-#- include_tasks: set_tomcat_apache_modjk.yml
-#  when:
-#    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
-#
+
+ - include_tasks: install_Apache_CentOS.yml
+   when:
+     - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+     - what_install == "Apache" or  what_install == "apache" or what_install == "apm" or what_install =="atm" or what_install == "APM" or what_install== "ATM" or what_install == "apmaria" or what_install == "APMARIA"
+
+ - include_tasks: install_mysql_CentOS.yml
+   when:
+     - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+     - what_install == "mysql" or what_install == "MYSQL" or what_install == "APM" or what_install =="ATM" or what_install == "atm" or what_install == "apm"
+
+ - include_tasks: install_php_CentOS.yml
+   when:
+     - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+     - what_install == "php" or what_install == "PHP" or what_install == "apm" or what_install == "APM"
+
+ - include_tasks: install_mariadb_CentOS.yml
+   when:
+     - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+     - what_install == "mariadb" or what_install == "MARIADB" or what_install == "apmaria" or what_install == "APMARIA"
+
+ - include_tasks: install_nginx_CentOS.yml
+   when:
+     - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+     - what_install == "nginx" or what_install == "NGINX" or  what_install == "NPM" or what_install =="NTM" or what_install == "ntm" or what_install== "npm"
+
+ - include_tasks: install_tomcat8_CentOS.yml
+   when:
+     - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+     - what_install  == "tomcat8" or what_install  == "TOMCAT8" or what_install  == "atm" or what_install  == "ntm" or what_install  == "ATM" or what_install  == "NTM"
+
+ - include_tasks: install_php_fpm_CentOS.yml
+   when:
+     - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+     - what_install == "php-fpm" or what_install == "NPM" or what_install== "npm"
+
+ - include_tasks: set_tomcat_apache_modjk.yml
+   when:
+     - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+     - what_install == "modjk" or what_install  == "ATM" or what_install  == "atm"
+
 #- include_tasks: set_tomcat_nginx_phpfpm.yml
 #  when:
 #    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
 
-- include_tasks: set_tomcat_nginx.yml
-  when:
-    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'
+#- include_tasks: set_tomcat_nginx.yml
+#  when:
+#    - ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos'

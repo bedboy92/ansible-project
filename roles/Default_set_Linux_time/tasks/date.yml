@@ -1,6 +1,6 @@
  - name: history_format
    lineinfile:
       dest: /etc/crontab
-      line: "01 * * * * root rdate -s time.bora.net && hwclock -w:"
+      line: "01 * * * * root rdate -s time.bora.net && hwclock -w"
       state: present
  - debug:
