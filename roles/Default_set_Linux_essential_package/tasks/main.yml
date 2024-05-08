@@ -4,3 +4,7 @@
  - include_tasks: install_essential_package.yml
    when:
      -  ansible_facts['distribution'] == 'CentOS' or  ansible_facts['distribution'] == 'Centos' or ansible_facts['distribution'] == 'Rocky'
+
+ - include_tasks: install_essential_package_Ubuntu.yml
+   when:
+     - ansible_facts['distribution'] == 'Ubuntu'

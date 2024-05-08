@@ -1,0 +1,19 @@
+#logrotate_20240115
+ - name: Modify logrotate.conf
+   lineinfile:
+     path: /etc/logrotate.conf
+     regexp: "{{ item.regexp }}"
+     line: "{{ item.line }}"
+   with_items:
+     - { regexp: '^weekly', line: 'monthly' }
+     - { regexp: '^rotate', line: 'rotate 13' }
+     - { regexp: '^compress', line: 'compress' }
+     - 'delaycompress' 
+ - debug:
+
+
+ - name: Restart logrotate service
+   command : 
+    - logrotate -f /etc/logrotate.conf 
+    - systemctl restart rsyslog
+ - debug:

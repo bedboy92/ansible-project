@@ -1,0 +1,34 @@
+### INSTALL FAIL2BAN ###
+#
+ - name: install_fail2ban
+   apt:
+    name:
+       - fail2ban
+    state: present
+ - debug:
+
+### copy default_fail2ban_configure ###
+#
+ - name: copy_configure
+   command: cp -f /etc/fail2ban/jail.conf /etc/fail2ban/jail.conf.bak
+ - debug:
+
+### Set Default Configuration ###
+#
+ - name: default_configure
+   copy:
+      src: /root/cloudt-managed-ansible-test/roles/Default_set_Linux_fail2ban/files/gabia_default_jail.conf
+      dest: /etc/fail2ban/jail.conf
+ - debug:
+
+### Set init.d fail2ban###
+ - name: enable_fail2ban
+   shell: systemctl enable fail2ban
+ - debug:
+
+### start fail2ban ###
+#
+ - name: start_fail2ban
+   shell: systemctl start fail2ban
+ - debug:
+

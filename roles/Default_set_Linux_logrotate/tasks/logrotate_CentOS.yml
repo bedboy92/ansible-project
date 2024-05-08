@@ -12,7 +12,8 @@
  - debug:
 
  - name: Restart logrotate service
-   command : logrotate -f /etc/logrotate.conf 
-   command : systemctl restart rsyslog
+   command : 
+    - logrotate -f /etc/logrotate.conf 
+    - systemctl restart rsyslog
  - debug:
 
