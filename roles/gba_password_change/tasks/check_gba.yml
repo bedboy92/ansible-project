@@ -12,7 +12,7 @@
 
  - name: gba_ip_check
    ipify_facts:
-    api_url: https://api.ipify.org
+    api_url: http://ipcheck.co.kr/c/
     timeout: 20
    register: gabia_ip
  - debug:
