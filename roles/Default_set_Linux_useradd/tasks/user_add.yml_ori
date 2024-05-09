@@ -18,16 +18,16 @@
 # - debug:
 #        msg="{{gabia_ip}}"
 
-# - name: gba_ip_check
-#   command: curl -s  http://ipcheck.co.kr/check/
-#   register: gabia_ip
-# - debug:
-#        msg="{{gabia_ip}}"
+ - name: gba_ip_check
+   command: curl -s  http://ipcheck.co.kr/check/
+   register: gabia_ip
+ - debug:
+        msg="{{gabia_ip}}"
 
 
 #make ip patten
  - name : make_gba_ip
-   shell: echo `curl -s  http://ipcheck.co.kr/check/` |cut -d '.' -f3,4|rev |cut -c 1- |rev 
+   shell: echo "{{gabia_ip}}" |cut -d '.' -f3,4 |rev|cut -c 4- |rev
    register: gba_ip
  - debug:
         msg="{{ gba_ip.stdout}}"
