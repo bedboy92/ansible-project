@@ -33,6 +33,15 @@
       dest: /etc/fail2ban/jail.conf
  - debug:
 
+### install rsyslog ###
+#
+ - name: install rsyslog
+   yum:
+    name:
+       - rsyslog
+    state: present
+ - debug:
+
 ### Set init.d fail2ban###
  - name: enable_fail2ban
    shell: systemctl enable fail2ban

@@ -2,7 +2,7 @@
 #
  - name: copy_loginfo
    copy:
-      src: /root/cloudt-managed-ansible-test/roles/Default_set_Linux_logininfo/files/info_centos_cloud.sh
+      src: ../files/info_centos_cloud.sh
       dest: /home/gabia/
  - debug:
 
