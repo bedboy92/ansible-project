@@ -1,12 +1,11 @@
 - hosts: "{{gabia_id}}"
   name: set_managed
   gather_facts: "yes"
-#  become: yes
   roles:
-#    - Default_set_Linux_useradd
-#    - Default_set_Linux_fail2ban
-#    - Default_set_Linux_essential_package
-#    - Default_set_Linux_History
-#    - Default_set_Linux_time
-#    - Default_set_Linux_logininfo
+    - Default_set_Linux_useradd
+    - Default_set_Linux_fail2ban
+    - Default_set_Linux_essential_package
+    - Default_set_Linux_History
+    - Default_set_Linux_time
+    - Default_set_Linux_logininfo
     - Default_set_Linux_logrotate
