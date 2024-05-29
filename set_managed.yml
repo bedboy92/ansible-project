@@ -1,6 +1,7 @@
 - hosts: "{{gabia_id}}"
   name: set_managed
   gather_facts: "yes"
+#  become: yes
   roles:
 #    - Default_set_Linux_useradd
 #    - Default_set_Linux_fail2ban

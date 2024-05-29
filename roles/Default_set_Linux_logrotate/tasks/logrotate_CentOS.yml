@@ -11,10 +11,9 @@
      - { regexp: '^delaycompress', line: 'delaycompress' }
  - debug:
 
- - name: Restart service
-#   command:
-#   shell:
-#     - logrotate -f /etc/logrotate.conf 
-#     - systemctl restart rsyslog
-# - debug:
+ - name: Restart logrotate service
+   shell: "logrotate -f /etc/logrotate.conf"
+   shell: "systemctl enable rsyslog"
+   shell: "systemctl restart rsyslog"
+ - debug:
 
